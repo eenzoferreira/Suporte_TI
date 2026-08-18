@@ -1,21 +1,13 @@
 @echo off
 chcp 65001 >nul
-title MENU DE SUPORTE TÉCNICO PROFISSIONAL
 
 :: ----------------------------------------------------------------------
-:: VERIFICAÇÃO DE PRIVILÉGIOS DE ADMINISTRADOR
+:: REINICIA O SCRIPT AUTOMATICAMENTE COMO ADMINISTRADOR
 :: ----------------------------------------------------------------------
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    cls
-    echo =====================================================================
-    echo  ATENÇÃO: ESTE SCRIPT PRECISA SER EXECUTADO COMO ADMINISTRADOR!
-    echo =====================================================================
-    echo.
-    echo  Por favor, feche esta janela, clique com o botão direito no arquivo
-    echo  e selecione "Executar como Administrador".
-    echo.
-    pause
+    echo Solicitando privilegios de Administrador...
+    powershell -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
     exit /b
 )
 
